@@ -621,9 +621,6 @@ case $selected_app in
         run_sd || exit 1
         run_llama2 || exit 1
         run_llama3 || exit 1
-        # run_deepseek || exit 1
-        # run_mixtral || exit 1
-        # run_qwen || exit 1
         run_llama2_ft || exit 1
         run_deepmd || exit 1
         run_lsms || exit 1
