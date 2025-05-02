@@ -128,8 +128,8 @@ run_sd() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting Stable Diffusion test..."
     SD_IMAGE=docker://austinguish259/rocm_sd-xl-turbo:latest
     SD_RUN_SCRIPT="$SCRIPT_DIR/sd-xl/run.sh"
-    CACHE_DIR=/mnt/dcgpuval/rutwjain/apps/model_cache
-    HF_DATA_DIR=/mnt/dcgpuval/rutwjain/apps/model_cache/data
+    CACHE_DIR="$SCRIPT_DIR/../datasets/model_cache"
+    HF_DATA_DIR="$SCRIPT_DIR/../datasets/model_cache/data"
 
     mkdir -p $CACHE_DIR $HF_DATA_DIR
     chmod a+x $SD_RUN_SCRIPT
@@ -169,9 +169,7 @@ run_llama2() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting Llama2 test..."
     VLLM_IMAGE=docker://rocm/vllm-dev:20241030
     LLAMA2_RUN_SCRIPT="$SCRIPT_DIR/vllm/llama2/run.sh"
-    CACHE_DIR=/mnt/dcgpuval/rutwjain/apps/model_cache/data
-    HF_TOKEN="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"
-
+    CACHE_DIR="$SCRIPT_DIR/../datasets/model_cache/data"
     mkdir -p $CACHE_DIR
     chmod a+x $LLAMA2_RUN_SCRIPT
 
@@ -212,9 +210,7 @@ run_mixtral() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting Mixtral test..."
     VLLM_IMAGE=docker://rocm/vllm-dev:20241030
     MIXTRAL_RUN_SCRIPT="$SCRIPT_DIR/vllm/mixtral-8x7B/run.sh"
-    CACHE_DIR=/mnt/dcgpuval/rutwjain/apps/model_cache/data
-    HF_TOKEN="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"
-
+    CACHE_DIR="$SCRIPT_DIR/../datasets/model_cache/data"
     mkdir -p $CACHE_DIR
     chmod a+x $MIXTRAL_RUN_SCRIPT
 
@@ -255,8 +251,8 @@ run_deepseek() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting deepseek test..."
     VLLM_IMAGE=docker://rocm/vllm-dev:20241030
     DeepSeekR1_RUN_SCRIPT="$SCRIPT_DIR/vllm/deepseek-llama/run.sh"
-    CACHE_DIR=/mnt/dcgpuval/rutwjain/apps/model_cache/data
-    HF_TOKEN="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"
+    CACHE_DIR="$SCRIPT_DIR/../datasets/model_cache/data"
+    
 
     mkdir -p $CACHE_DIR
     chmod a+x $DeepSeekR1_RUN_SCRIPT
@@ -299,8 +295,8 @@ run_llama3() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting Llama3 test..."
     VLLM_IMAGE=docker://rocm/vllm-dev:20241030
     LLAMA3_RUN_SCRIPT="$SCRIPT_DIR/vllm/llama3/run.sh"
-    CACHE_DIR=/mnt/dcgpuval/rutwjain/apps/model_cache/data
-    HF_TOKEN="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"
+    CACHE_DIR="$SCRIPT_DIR/../datasets/model_cache/data"
+    
     
     mkdir -p $CACHE_DIR
     chmod a+x $LLAMA3_RUN_SCRIPT
@@ -340,7 +336,7 @@ run_qwen() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting Qwen2.5 test..."
     VLLM_IMAGE=docker://rocm/vllm-dev:20241030
     QWEN_RUN_SCRIPT="$SCRIPT_DIR/vllm/qwen2.5/run.sh"
-    CACHE_DIR=/mnt/dcgpuval/rutwjain/apps/model_cache/data
+    CACHE_DIR="$SCRIPT_DIR/../datasets/model_cache/data"
     
     mkdir -p $CACHE_DIR
     chmod a+x $QWEN_RUN_SCRIPT
@@ -383,7 +379,7 @@ run_llama2_ft() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting Llama2 finetuning test..."
     LLAMA2_FT_IMAGE=docker://austinguish259/torchtune:latest
     LLAMA2_FT_RUN_SCRIPT="$SCRIPT_DIR/llama2_ft/run.sh"
-    CACHE_DIR=/mnt/dcgpuval/rutwjain/apps/model_cache/data
+    CACHE_DIR="$SCRIPT_DIR/../datasets/model_cache/data"
     
     chmod a+x $LLAMA2_FT_RUN_SCRIPT
     
