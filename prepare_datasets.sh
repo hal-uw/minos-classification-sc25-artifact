@@ -4,8 +4,8 @@
 # --option: Optional parameter to specify which datasets to download (comma-separated)
 # Example: ./script.sh --option qmcpack,gunrock,openfold_aqlab
 # Default: Download all datasets
-
-ALL_DATASETS=("qmcpack" "gunrock" "openfold_aqlab" "openfold_mlcommons" "gnn")
+HF_TOKEN=""
+ALL_DATASETS=("qmcpack" "gunrock" "openfold_aqlab" "openfold_mlcommons" "gnn" "llama2_ft")
 SELECTED_DATASETS=()
 
 # Parse command line arguments
@@ -188,6 +188,47 @@ if should_download "gnn"; then
   cd ..
 else
   echo "Skipping GNN datasets"
+fi
+
+# Llama2 fine-tuning
+
+llama2_files=(
+    ".gitattributes"
+    "LICENSE.txt"
+    "README.md"
+    "Responsible-Use-Guide.pdf"
+    "USE_POLICY.md"
+    "config.json"
+    "generation_config.json"
+    "model-00001-of-00002.safetensors"
+    "model-00002-of-00002.safetensors"
+    "model.safetensors.index.json"
+    "pytorch_model-00001-of-00002.bin"
+    "pytorch_model-00002-of-00002.bin"
+    "pytorch_model.bin.index.json"
+    "special_tokens_map.json"
+    "tokenizer.json"
+    "tokenizer.model"
+    "tokenizer_config.json"
+)
+
+
+if should_download "llama2_ft"; then
+  echo "Downloading Llama2 fine-tuning datasets..."
+  mkdir -p llama2_ft
+  cd llama2_ft
+  echo "Downloading Llama2 fine-tuning files..."
+  for file in "${llama2_files[@]}"; do
+    url="https://huggingface.co/TheBloke/Llama-2-7b-chat-GPTQ/resolve/main/$file"
+    echo "Downloading $file from $url"
+    curl -L -O "$url" \
+         -H "Authorization: Bearer $AUTH_TOKEN"
+    if [ $? -eq 0 ]; then
+        echo "Successful: $file"
+  done
+  cd ..
+else
+  echo "Skipping Llama2 fine-tuning datasets"
 fi
 
 echo "Download complete for selected datasets: ${SELECTED_DATASETS[*]}"

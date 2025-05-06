@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
-import os
-os.environ['HF_HOME'] = "../../datasets/model_cache/data"
-os.environ["TRANSFORMERS_CACHE"] = "../../datasets/model_cache/data"
-os.environ["VLLM_CACHE_DIR"] = "../../datasets/model_cache/data"
-import json
-import argparse
 from vllm import LLM, SamplingParams
+import argparse
+import json
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+os.environ['HF_HOME'] = os.path.join(current_dir, "../../datasets/model_cache")
+os.environ["TRANSFORMERS_CACHE"] = os.path.join(
+    current_dir, "../../datasets/model_cache")
+os.environ["VLLM_CACHE_DIR"] = os.path.join(
+    current_dir, "../../datasets/model_cache")
+
 
 def main():
     # Create argument parser
-    parser = argparse.ArgumentParser(description="Run inference with Meta-Llama model")
+    parser = argparse.ArgumentParser(
+        description="Run inference with Meta-Llama model")
     parser.add_argument("--output_len", type=int, default=5,
                         help="Maximum number of tokens to generate")
     args = parser.parse_args()
@@ -24,6 +29,7 @@ def main():
     output_file = "inference_result.json"
 
     print(f"loading models: {model_name}")
+    download_dir = os.path.join(current_dir, "../../datasets/model_cache/data")
     llm = LLM(
         model=model_name,
         tensor_parallel_size=tensor_parallel_size,
@@ -31,7 +37,7 @@ def main():
         dtype=dtype,
         enforce_eager=enforce_eager,
         gpu_memory_utilization=gpu_memory_utilization,
-        download_dir="../../datasets/model_cache/data"  # Explicitly set cache directory
+        download_dir=download_dir  # Explicitly set cache directory
     )
 
     prompt = "Hello, my name is"
@@ -55,6 +61,7 @@ def main():
         json.dump(results, f, indent=2)
 
     print(f"gentext: {results[0]['generated_text']}")
+
 
 if __name__ == "__main__":
     main()
