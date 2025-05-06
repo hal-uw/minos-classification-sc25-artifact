@@ -1,0 +1,12 @@
+FROM austinguish259/hipfort_cuda:latest
+
+WORKDIR /workspace
+RUN git clone https://github.com/austinguish/OLCF-6_M-PSDNS.git
+WORKDIR /workspace/OLCF-6_M-PSDNS
+RUN cp scripts_nvhpc/* ./
+# Set the LD_LIBRARY_PATH environment variable
+ENV LD_LIBRARY_PATH=/opt/nvidia/hpc_sdk/Linux_x86_64/23.9/comm_libs/12.2/openmpi4/openmpi-4.1.5/lib:/opt/nvidia/hpc_sdk/Linux_x86_64/23.9/comm_libs/12.2/hpcx/hpcx-2.16/ompi/lib:$LD_LIBRARY_PATH
+RUN bash build_dns_nvhpc.sh
+RUN mv DNS_PEN_GPU_p4.x /usr/bin
+RUN rm -rf /workspace
+WORKDIR /

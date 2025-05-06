@@ -1,0 +1,9 @@
+FROM nvcr.io/nvidia/nvhpc:23.9-devel-cuda_multi-ubuntu20.04
+WORKDIR /workspace
+COPY ./build_hipfort_nvhpc.sh /workspace
+RUN git clone https://github.com/austinguish/hipfort.git
+WORKDIR /workspace/hipfort
+RUN git checkout hipcuda
+WORKDIR /workspace
+RUN bash build_hipfort_nvhpc.sh
+ENV PATH="/workspace/hipfort_v6.2.0/NVHPC_23.9/bin:${PATH}"
