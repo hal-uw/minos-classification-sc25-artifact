@@ -1,8 +1,8 @@
 # sc25-Minos
 
 TODO:
-- milc
-- openfold
+x milc
+x openfold follow the https://openfold.readthedocs.io/en/latest/Training_OpenFold.html#advanced-training-configurations prepare the weights
 - pannotia
 - qmcpack
 - resnet
