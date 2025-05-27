@@ -80,6 +80,7 @@ def process_files(file_list):
 
 
 if __name__ == "__main__":
+    os.chdir(os.path.dirname(os.path.abspath(__file__))+'/results')
     # Example usage with file list
     file_list = ["deepmd.csv", "gnn.csv", "pr_indochina.csv", "pr_att.csv",
                  "bfs_indochina.csv", "bfs_kron.csv",

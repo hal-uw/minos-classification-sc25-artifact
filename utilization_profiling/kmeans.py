@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import json
+import os
 from collections import defaultdict
 import matplotlib
 from sklearn.metrics import silhouette_score
@@ -104,7 +105,7 @@ def examine_clusters(df, kmeans, features):
 def assign_cluster_types(kmeans, cluster_assignments):
     """
     Manually assign cluster types based on provided mapping.
-    
+
     Args:
         kmeans: The KMeans object
         cluster_assignments: A dictionary mapping cluster numbers to category types
@@ -316,6 +317,7 @@ def print_cluster_info(df, kmeans, features, cluster_full_name_map):
     print(pd.DataFrame(kmeans.cluster_centers_, columns=features))
 
 
+os.chdir(os.path.dirname(os.path.abspath(__file__))+'/results')
 file_path = 'utilization_results.json'
 features = ["Compute (SM) Throughput", "DRAM Throughput"]
 n_clusters = 3
