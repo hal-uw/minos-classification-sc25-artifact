@@ -1,0 +1,6 @@
+[submodule "rocprofwrap"]
+	path = rocprofwrap
+	url = https://github.com/hal-uw/rocprofwrap
+[submodule "datasets/OpenFold/aqlab"]
+	path = datasets/OpenFold/aqlab
+	url = https://github.com/aqlaboratory/openfold.git
