@@ -27,6 +27,8 @@ echo "Changed working directory to: $SCRIPT_DIR"
 # Set application command
 APP_CMD="python3 run.py"
 
+ROCPROF_SOURCE="$SCRIPT_DIR/../../rocprofwrap"
+
 # Check and copy ROCProfiler wrapper
 if [ ! -d "$ROCPROF_SOURCE" ]; then
     echo "Error: ROCProfiler wrapper directory not found: $ROCPROF_SOURCE"

@@ -25,6 +25,25 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$SCRIPT_DIR"
 echo "Changed working directory to: $SCRIPT_DIR"
 
+# Ensure OpenMP threads has a valid value
+if [[ -z "$OMP_NUM_THREADS" ]]; then
+    export OMP_NUM_THREADS=1
+fi
+
+# Force HIP/CUDA to use GPU 0 inside the container
+export HIP_VISIBLE_DEVICES=0
+export CUDA_VISIBLE_DEVICES=0
+
+# Copy Ni and O pseudopotentials into this directory
+cp "$SCRIPT_DIR/../../datasets/qmcpack/Ni.opt.xml" . || {
+    echo "Error: Could not copy Ni.opt.xml"
+    exit 1
+}
+cp "$SCRIPT_DIR/../../datasets/qmcpack/O.xml" . || {
+    echo "Error: Could not copy O.xml"
+    exit 1
+}
+
 # Check if input file exists
 QMCPACK_INPUT="../../datasets/qmcpack/input_amd.xml"
 if [ ! -f "$QMCPACK_INPUT" ]; then
@@ -35,6 +54,7 @@ fi
 # Set QMCPACK command
 QMCPACK_CMD="qmcpack $QMCPACK_INPUT"
 
+ROCPROF_SOURCE="$SCRIPT_DIR/../../rocprofwrap"
 
 if [ ! -d "$ROCPROF_SOURCE" ]; then
     echo "Error: ROCProfiler wrapper directory not found: $ROCPROF_SOURCE"
@@ -73,19 +93,17 @@ fi
 
 # Run profiling with error checking
 echo "Starting QMCPACK profiling with ROCProfiler..."
-# set the running sets
-# set the counter files
 declare -A COUNTER_FILES=(
-    ["set1"]="$SCRIPT_DIR/set1.json")
-
+    ["set1"]="$SCRIPT_DIR/set1.json"
+)
 
 # loop through the counter files
 for set_name in "${!COUNTER_FILES[@]}"; do
     COUNTER_FILE="${COUNTER_FILES[$set_name]}"
     echo "Running profiling with counter file: $COUNTER_FILE"
-    
+
     python3 $WRAPPER --cmd "$QMCPACK_CMD" --gpus 0 --prefix "${prefix}" --counters_file "$COUNTER_FILE"
-    
+
     if [ $? -ne 0 ]; then
         echo "Error: Profiling failed for $set_name"
         continue

@@ -16,6 +16,7 @@ if [ -z "$gpu_model" ]; then
     gpu_model="mi210"
 fi
 
+
 app_name="llama2"
 hostname=$(hostname)
 prefix="metric_${app_name}"
@@ -24,6 +25,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$SCRIPT_DIR"
 echo "Changed working directory to: $SCRIPT_DIR"
 
+
 # Define batch sizes to test
 batch_sizes=(1 8 32)
 
@@ -31,12 +33,17 @@ batch_sizes=(1 8 32)
 # Set application command - now using VLLM latency script
 APP_CMD="$SCRIPT_DIR/../latency.sh -m meta-llama/Llama-2-7b-chat-hf -g 1 -d float16 -i 2048 -o 128"
 
+ROCPROF_SOURCE="$SCRIPT_DIR/../../../rocprofwrap"
+
+
 # Check and copy ROCProfiler wrapper
 if [ ! -d "$ROCPROF_SOURCE" ]; then
     echo "Error: ROCProfiler wrapper directory not found: $ROCPROF_SOURCE"
     exit 1
 fi
 cp -r $ROCPROF_SOURCE ./
+
+
 
 # Rebuild gpuprof
 echo "Rebuilding gpuprof..."

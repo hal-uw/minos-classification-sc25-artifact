@@ -36,13 +36,15 @@ else
 fi
 
 PR_ARGS="-n 10 -m"
-PR_INPUT="../../datasets/gunrock/indochina-2004.mtx"
+PR_INPUT="../../datasets/gunrock/indochina-2004/indochina-2004.mtx"
 
 BFS_ARGS="-s 13 -m"
-BFS_INPUT="../../datasets/gunrock/kron_g500-logn21.mtx"
+BFS_INPUT="../../datasets/gunrock/kron_g500-logn21/kron_g500-logn21.mtx"
 
 SSSP_ARGS="-s 13 -m"
-SSSP_INPUT="../../datasets/gunrock/kron_g500-logn21.mtx"
+SSSP_INPUT="../../datasets/gunrock/kron_g500-logn21/kron_g500-logn21.mtx"
+
+ROCPROF_SOURCE="$SCRIPT_DIR/../../rocprofwrap"
 
 # Check if PageRank binary exists
 if [ ! -f "$PR_BIN" ]; then
@@ -62,6 +64,10 @@ if [ ! -d "$ROCPROF_SOURCE" ]; then
     echo "Error: ROCProfiler wrapper directory not found: $ROCPROF_SOURCE"
     exit 1
 fi
+
+echo "ROCPROF_SOURCE -> $ROCPROF_SOURCE"
+ls -l "$ROCPROF_SOURCE/Makefile"
+mkdir -p ./rocprofwrap
 cp -r $ROCPROF_SOURCE ./
 
 # Rebuild gpuprof

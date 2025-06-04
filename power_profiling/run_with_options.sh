@@ -63,9 +63,7 @@ run_qmcpack() {
         --env HIP_VISIBLE_DEVICES=$HIP_VISIBLE_DEVICES \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
-        
-        $QMCPACK_IMAGE \
-        bash $SCRIPT_DIR/qmcpack/run.sh -gpu_model $gpu_model
+        $QMCPACK_IMAGE bash $SCRIPT_DIR/qmcpack/run.sh -gpu_model $gpu_model
     
     return $?
 }
@@ -87,9 +85,7 @@ run_lulesh() {
         --env HIP_VISIBLE_DEVICES=$HIP_VISIBLE_DEVICES \
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
-        
-        $LULESH_IMAGE \
-        bash $SCRIPT_DIR/lulesh/run.sh -gpu_model $gpu_model
+        $LULESH_IMAGE bash $SCRIPT_DIR/lulesh/run.sh -gpu_model $gpu_model
     
     return $?
 }
@@ -116,9 +112,8 @@ run_gunrock() {
         --env HIP_VISIBLE_DEVICES=$HIP_VISIBLE_DEVICES \
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
-        
-        $GUNROCK_IMAGE \
-        bash $SCRIPT_DIR/gunrock/run.sh -gpu_model $gpu_model
+	    $GUNROCK_IMAGE bash $SCRIPT_DIR/gunrock/run.sh -gpu_model $gpu_model
+
     
     return $?
 }
@@ -157,9 +152,7 @@ run_sd() {
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
         --bind "$CACHE_DIR:$CACHE_DIR" \
         --bind "$HF_DATA_DIR:$HF_DATA_DIR" \
-        
-        $SD_IMAGE \
-        bash $SCRIPT_DIR/sd-xl/run.sh -gpu_model $gpu_model
+        $SD_IMAGE bash $SCRIPT_DIR/sd-xl/run.sh -gpu_model $gpu_model
     
     return $?
 }
@@ -199,9 +192,7 @@ run_llama2() {
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
         --bind "$CACHE_DIR:$CACHE_DIR" \
-        
-        $VLLM_IMAGE \
-        bash $SCRIPT_DIR/vllm/llama2/run.sh -gpu_model $gpu_model
+        $VLLM_IMAGE bash $SCRIPT_DIR/vllm/llama2/run.sh -gpu_model $gpu_model
     
     return $?
 }
@@ -240,9 +231,7 @@ run_mixtral() {
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
         --bind "$CACHE_DIR:$CACHE_DIR" \
-        
-        $VLLM_IMAGE \
-        bash $SCRIPT_DIR/vllm/mixtral-8x7B/run.sh -gpu_model $gpu_model
+        $VLLM_IMAGE bash $SCRIPT_DIR/vllm/mixtral-8x7B/run.sh -gpu_model $gpu_model
     
     return $?
 }
@@ -283,9 +272,7 @@ run_deepseek() {
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
         --bind "$CACHE_DIR:$CACHE_DIR" \
-        
-        $VLLM_IMAGE \
-        bash $SCRIPT_DIR/vllm/deepseek-llama/run.sh -gpu_model $gpu_model
+        $VLLM_IMAGE bash $SCRIPT_DIR/vllm/deepseek-llama/run.sh -gpu_model $gpu_model
     
     return $?
 }
@@ -325,9 +312,7 @@ run_llama3() {
         --env HIP_VISIBLE_DEVICES=$HIP_VISIBLE_DEVICES \
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         --bind "$CACHE_DIR:$CACHE_DIR" \
-        
-        $VLLM_IMAGE \
-        bash $SCRIPT_DIR/vllm/llama3/run.sh -gpu_model $gpu_model
+        $VLLM_IMAGE bash $SCRIPT_DIR/vllm/llama3/run.sh -gpu_model $gpu_model
     
     return $?
 }
@@ -367,9 +352,7 @@ run_qwen() {
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
         --bind "$CACHE_DIR:$CACHE_DIR" \
-        
-        $VLLM_IMAGE \
-        bash $SCRIPT_DIR/vllm/qwen2.5/run.sh -gpu_model $gpu_model
+        $VLLM_IMAGE bash $SCRIPT_DIR/vllm/qwen2.5/run.sh -gpu_model $gpu_model
     
     return $?
 }
@@ -404,9 +387,7 @@ run_llama2_ft() {
         --env HF_TOKEN=$HF_TOKEN \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
         --env HF_CACHE_DIR=$HF_CACHE_DIR \
-        
-        $LLAMA2_FT_IMAGE \
-        bash $SCRIPT_DIR/llama2_ft/run.sh -gpu_model $gpu_model
+        $LLAMA2_FT_IMAGE bash $SCRIPT_DIR/llama2_ft/run.sh -gpu_model $gpu_model
     
     return $?
 }
@@ -432,9 +413,7 @@ run_deepmd() {
         --env HIP_VISIBLE_DEVICES=$HIP_VISIBLE_DEVICES \
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
-        
-        $DEEPMD_IMAGE \
-        bash $SCRIPT_DIR/deepmd/run.sh -gpu_model $gpu_model
+        $DEEPMD_IMAGE bash $SCRIPT_DIR/deepmd/run.sh -gpu_model $gpu_model
     
     return $?
 }
@@ -460,9 +439,7 @@ run_lsms(){
         --env HIP_VISIBLE_DEVICES=$HIP_VISIBLE_DEVICES \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
-        
-        $LSMS_IMAGE \
-        bash $SCRIPT_DIR/lsms/run.sh -gpu_model $gpu_model
+        $LSMS_IMAGE bash $SCRIPT_DIR/lsms/run.sh -gpu_model $gpu_model
     
     return $? 
 }
@@ -488,9 +465,7 @@ run_resnet(){
         --env HIP_VISIBLE_DEVICES=$HIP_VISIBLE_DEVICES \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
-        
-        $RESNET_IMAGE \
-        bash $SCRIPT_DIR/resnet/run.sh -gpu_model $gpu_model
+        $RESNET_IMAGE bash $SCRIPT_DIR/resnet/run.sh -gpu_model $gpu_model
     
     return $? 
 }
@@ -517,9 +492,7 @@ run_milc(){
         --env QUDA_ENABLE_GDR=1 \
         --env  QUDA_MILC_HISQ_RECONSTRUCT=13 \
         --env  QUDA_MILC_HISQ_RECONSTRUCT_SLOPPY=9 \
-        
-        $MILC_IMAGE \
-        bash $SCRIPT_DIR/milc/run.sh -gpu_model $gpu_model
+        $MILC_IMAGE bash $SCRIPT_DIR/milc/run.sh -gpu_model $gpu_model
     
     return $? 
 }
@@ -545,9 +518,7 @@ run_openfold_mlcommons(){
         --env HIP_VISIBLE_DEVICES=$HIP_VISIBLE_DEVICES \
         --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         --env ROCPROF_SOURCE=$ROCPROF_SOURCE \
-        
-        $OPENFOLD_IMAGE \
-        bash $SCRIPT_DIR/openfold_mlcommons/run.sh -gpu_model $gpu_model
+        $OPENFOLD_IMAGE bash $SCRIPT_DIR/openfold_mlcommons/run.sh -gpu_model $gpu_model
     
     return $? 
 }

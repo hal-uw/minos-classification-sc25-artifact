@@ -225,6 +225,9 @@ if should_download "llama2_ft"; then
          -H "Authorization: Bearer $AUTH_TOKEN"
     if [ $? -eq 0 ]; then
         echo "Successful: $file"
+    else
+	      echo "Failed: $file"
+    fi
   done
   cd ..
 else
