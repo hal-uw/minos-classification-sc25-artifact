@@ -36,6 +36,9 @@ DEEPMD_CMD="dp --pt train $DEEPMD_INPUT"
 export WRAPPER_ROOT=$SCRIPT_DIR/rocprofwrap/
 export HSA_TOOLS_LIB=/opt/rocm/lib/librocprofiler64.so.1
 export LD_LIBRARY_PATH=/opt/rocm/lib/:$LD_LIBRARY_PATH
+
+ROCPROF_SOURCE="$SCRIPT_DIR/../../rocprofwrap"
+
 # Check and copy ROCProfiler wrapper
 if [ ! -d "$ROCPROF_SOURCE" ]; then
     echo "Error: ROCProfiler wrapper directory not found: $ROCPROF_SOURCE"

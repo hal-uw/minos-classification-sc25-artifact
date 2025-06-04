@@ -32,6 +32,7 @@ batch_sizes=(1 2 4)
 # Set application command - now using VLLM latency script
 APP_CMD="$SCRIPT_DIR/../latency.sh -m mistralai/Mixtral-8x7B-Instruct-v0.1 -g 2 -d float16 -i 2048 -o 128"
 
+ROCPROF_SOURCE="$SCRIPT_DIR/../../../rocprofwrap"
 
 if [ ! -d "$ROCPROF_SOURCE" ]; then
     echo "Error: ROCProfiler wrapper directory not found: $ROCPROF_SOURCE"

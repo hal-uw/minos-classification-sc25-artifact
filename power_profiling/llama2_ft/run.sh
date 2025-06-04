@@ -34,6 +34,8 @@ tune download meta-llama/Llama-2-7b-hf \
 INPUT="$SCRIPT_DIR/ft_config.yaml"
 APP_CMD="tune run lora_finetune_single_device --config $INPUT"
 
+ROCPROF_SOURCE="$SCRIPT_DIR/../../rocprofwrap"
+
 # Check and copy ROCProfiler wrapper
 if [ ! -d "$ROCPROF_SOURCE" ]; then
     echo "Error: ROCProfiler wrapper directory not found: $ROCPROF_SOURCE"

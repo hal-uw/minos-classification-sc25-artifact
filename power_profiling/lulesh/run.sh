@@ -16,6 +16,8 @@ if [ -z "$gpu_model" ]; then
     gpu_model="mi210"
 fi
 
+
+
 app_name="lulesh"
 hostname=$(hostname)
 prefix="metric_${app_name}"
@@ -35,6 +37,8 @@ fi
 
 
 ## Check and copy ROCProfiler wrapper
+
+ROCPROF_SOURCE="$SCRIPT_DIR/../../rocprofwrap"
 
 if [ ! -d "$ROCPROF_SOURCE" ]; then
     echo "Error: ROCProfiler wrapper directory not found: $ROCPROF_SOURCE"

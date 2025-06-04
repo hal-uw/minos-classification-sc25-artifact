@@ -33,6 +33,8 @@ batch_sizes=(1 8 32)
 # Set application command - now using VLLM latency script
 APP_CMD="$SCRIPT_DIR/../latency.sh -m meta-llama/Meta-Llama-3.1-8B-Instruct -g 1 -d float16 -i 2048 -o 128"
 
+ROCPROF_SOURCE="$SCRIPT_DIR/../../../rocprofwrap"
+
 # Check and copy ROCProfiler wrapper
 if [ ! -d "$ROCPROF_SOURCE" ]; then
     echo "Error: ROCProfiler wrapper directory not found: $ROCPROF_SOURCE"

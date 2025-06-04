@@ -4,7 +4,7 @@
 # --option: Optional parameter to specify which datasets to download (comma-separated)
 # Example: ./script.sh --option qmcpack,gunrock,openfold_aqlab
 # Default: Download all datasets
-HF_TOKEN=""
+HF_TOKEN="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"
 ALL_DATASETS=("qmcpack" "gunrock" "openfold_aqlab" "openfold_mlcommons" "gnn" "llama2_ft")
 SELECTED_DATASETS=()
 
@@ -225,6 +225,9 @@ if should_download "llama2_ft"; then
          -H "Authorization: Bearer $AUTH_TOKEN"
     if [ $? -eq 0 ]; then
         echo "Successful: $file"
+    else
+	      echo "Failed: $file"
+    fi
   done
   cd ..
 else

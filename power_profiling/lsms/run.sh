@@ -36,6 +36,8 @@ if [ ! -f "$LSMS_INPUT" ]; then
     exit 1
 fi
 
+
+
 # Set QMCPACK command
 # QMCPACK_CMD="qmcpack $QMCPACK_INPUT"
 # mpirun --bind-to none -np 1 set_device_and_bind.sh $LSMS_ROOT/build/bin/lsms i_lsms_start
@@ -43,6 +45,9 @@ LSMS_CMD="mpirun -np 1 lsms $LSMS_INPUT"
 export WRAPPER_ROOT=$SCRIPT_DIR/rocprofwrap/
 export HSA_TOOLS_LIB=/opt/rocm/lib/librocprofiler64.so.1
 export LD_LIBRARY_PATH=/opt/rocm/lib/:$LD_LIBRARY_PATH
+
+ROCPROF_SOURCE="$SCRIPT_DIR/../../rocprofwrap"
+
 # Check and copy ROCProfiler wrapper
 if [ ! -d "$ROCPROF_SOURCE" ]; then
     echo "Error: ROCProfiler wrapper directory not found: $ROCPROF_SOURCE"

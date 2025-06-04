@@ -36,6 +36,8 @@ fi
 MILC_CMD="mpirun -np 1 /opt/milc/bin/su3_rhmd_hisq $MILC_INPUT"
 mkdir -p qudatune
 
+ROCPROF_SOURCE="$SCRIPT_DIR/../../rocprofwrap"
+
 if [ ! -d "$ROCPROF_SOURCE" ]; then
     echo "Error: ROCProfiler wrapper directory not found: $ROCPROF_SOURCE"
     exit 1
