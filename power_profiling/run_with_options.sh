@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 gpu_model="mi300a"
 selected_app="all"
-HF_TOKEN="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"
+HF_TOKEN=""
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do

@@ -4,7 +4,7 @@
 # --option: Optional parameter to specify which datasets to download (comma-separated)
 # Example: ./script.sh --option qmcpack,gunrock,openfold_aqlab
 # Default: Download all datasets
-HF_TOKEN="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"
+HF_TOKEN=""
 ALL_DATASETS=("qmcpack" "gunrock" "openfold_aqlab" "openfold_mlcommons" "gnn" "llama2_ft")
 SELECTED_DATASETS=()
 
