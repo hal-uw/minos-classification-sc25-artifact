@@ -472,7 +472,7 @@ run_resnet(){
 
 run_milc(){
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting MILC test..."
-    MILC_IMAGE=docker://austinguish259/rocm_milc:latest
+    MILC_IMAGE=docker://austinguish259/milc_rocm:latest
     MILC_RUN_SCRIPT="$SCRIPT_DIR/milc/run.sh"
     chmod a+x $MILC_RUN_SCRIPT
     
