@@ -1,31 +1,36 @@
 #!/bin/bash
 
-# Exit on error
+# Exit immediately if a command fails
 set -e
 
-# Create results directory
+# Create results directory if it doesn't exist
 mkdir -p results
 
-# Find and copy files
 echo "Starting file search and copy..."
-found=false
+found_any=false
 
-# Use find command to recursively search for files
-# Using two patterns:
-# 1. metrics_* (original pattern)
-find . -type f \( -name "metrics_*" \) | while read file; do
+# Find all files named like metric_*_0 (no extension)
+while IFS= read -r file; do
     if [ -f "$file" ]; then
-        cp "$file" results/
-        # Check if the file was copied successfully
+        # Strip directory path, keep only filename
+        filename=$(basename "$file")
+
+        # Copy to results/ while preserving filename only
+        cp "$file" "results/$filename"
         if [ $? -ne 0 ]; then
             echo "Error: Failed to copy $file"
             continue
         fi
-        # then delete the file
-        rm "$file"
-        echo "Copied: $file -> results/"
-        found=true
+
+        echo "Copied: $file -> results/$filename"
+        found_any=true
     fi
-done
-# 2. call the filter python script
-python3 filter.py --dir results --pattern "metrics_*"
+done < <(find . -type f -name "metric_*_0")
+
+# Warn if no files were found
+if [ "$found_any" = false ]; then
+    echo "No metric_*_0 files found."
+fi
+
+# Run the filter script on copied files
+python3 filter.py --dir results --pattern "metric_*_0"
