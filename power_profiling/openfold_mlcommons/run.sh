@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
+# Exit on error
+set -e
+
+# Parse GPU model argument
 while [[ $# -gt 0 ]]; do
     case $1 in
         -gpu_model)
@@ -26,17 +30,33 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$SCRIPT_DIR"
 echo "Changed working directory to: $SCRIPT_DIR"
 
+# Extract pdb_data.tar if needed
+DATA_DIR="$SCRIPT_DIR/../../datasets/OpenFold/mlcommons"
+TAR_FILE="$DATA_DIR/pdb_data.tar"
+EXTRACTED_DIR="$DATA_DIR/pdb_data"
+
+if [ -f "$TAR_FILE" ] && [ ! -d "$EXTRACTED_DIR" ]; then
+    echo "Extracting $TAR_FILE to $DATA_DIR..."
+    tar -xvf "$TAR_FILE" -C "$DATA_DIR"
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to extract $TAR_FILE"
+        exit 1
+    fi
+else
+    echo "Tar file not found or pdb_data already extracted."
+fi
+
 # Path to the train.py inside the container
 train_script="/workspace/openfold/train.py"
 
-# Build the command line for OpenFold, pointing into datasets/
+# Build the command line for OpenFold
 OPENFOLD_CMD="python $train_script \
-  --training_dirpath $SCRIPT_DIR/../../datasets/OpenFold/mlcommons/run \
-  --pdb_mmcif_chains_filepath $SCRIPT_DIR/../../datasets/OpenFold/mlcommons/pdb_data/pdb_mmcif/processed/chains.csv \
-  --pdb_mmcif_dicts_dirpath $SCRIPT_DIR/../../datasets/OpenFold/mlcommons/pdb_data/pdb_mmcif/processed/dicts \
-  --pdb_obsolete_filepath $SCRIPT_DIR/../../datasets/OpenFold/mlcommons/pdb_data/pdb_mmcif/processed/obsolete.dat \
-  --pdb_alignments_dirpath $SCRIPT_DIR/../../datasets/OpenFold/mlcommons/pdb_data/open_protein_set/processed/pdb_alignments \
-  --initialize_parameters_from $SCRIPT_DIR/../../datasets/OpenFold/mlcommons/mlperf_hpc_openfold_resumable_checkpoint_b518be46.pt \
+  --training_dirpath $DATA_DIR/run \
+  --pdb_mmcif_chains_filepath $DATA_DIR/pdb_data/pdb_mmcif/processed/chains.csv \
+  --pdb_mmcif_dicts_dirpath $DATA_DIR/pdb_data/pdb_mmcif/processed/dicts \
+  --pdb_obsolete_filepath $DATA_DIR/pdb_data/pdb_mmcif/processed/obsolete.dat \
+  --pdb_alignments_dirpath $DATA_DIR/pdb_data/open_protein_set/processed/pdb_alignments \
+  --initialize_parameters_from $DATA_DIR/mlperf_hpc_openfold_resumable_checkpoint_b518be46.pt \
   --train_max_pdb_release_date 2021-12-11 \
   --target_avg_lddt_ca_value 0.9 \
   --seed 1234567890 \

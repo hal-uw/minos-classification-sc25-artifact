@@ -12,8 +12,8 @@ import argparse
 
 # Set up argument parser
 parser = argparse.ArgumentParser(description='ResNet50 training on ImageNetV2')
-parser.add_argument('--n', type=int, default=256, help='Batch size')
-parser.add_argument('--i', type=int, default=50, help='Number of iterations')
+parser.add_argument('--n', '-n', type=int, default=256, help='Batch size')
+parser.add_argument('--i', '-i', type=int, default=50, help='Number of iterations')
 args = parser.parse_args()
 
 # Set up transformations
