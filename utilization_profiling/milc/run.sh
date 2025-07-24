@@ -11,10 +11,10 @@ export QUDA_MILC_HISQ_RECONSTRUCT_SLOPPY=9
 
 EXEC=/usr/local/milc/sm80/bin/su3_rhmd_hisq
 SIF_IMAGE="docker://austinguish259/milc:latest"
-INPUT=$CURRENT_DIR/../../datasets/MILC/benchmark.in
+INPUT=$CURRENT_DIR/../../datasets/MILC/small_cuda.in
 NCU="/opt/nvidia/nsight-compute/2025.1.1/ncu --target-processes all -f \
 --metrics gpu__dram_throughput.avg.pct_of_peak_sustained_elapsed,gpu__time_duration.sum,sm__throughput.avg.pct_of_peak_sustained_elapsed \
---csv --devices 0"
+--csv --devices 0 --log-file small_milc.log"
 
 CMD="mpirun -np 1 $NCU $EXEC $INPUT > milc.csv 2> milc_error.log"
 
